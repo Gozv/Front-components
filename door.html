@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puerta Animada</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Contenedor principal de la puerta */
+        .door-container {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            transition: all 1.5s ease-in-out;
+            z-index: 1000;
+        }
+
+        /* Paneles de la puerta */
+        .door-panel {
+            flex: 1;
+            background: #2c3e50;
+            transition: transform 1.5s ease-in-out;
+            position: relative;
+        }
+
+        /* Panel izquierdo */
+        .door-panel.left {
+            transform-origin: right center;
+        }
+
+        /* Panel derecho */
+        .door-panel.right {
+            transform-origin: left center;
+        }
+
+        /* Cuando se activa la animación */
+        .door-container.open .door-panel.left {
+            transform: rotateY(-100deg);
+        }
+
+        .door-container.open .door-panel.right {
+            transform: rotateY(100deg);
+        }
+
+        /* Botón de inicio */
+        .start-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 15px 30px;
+            font-size: 24px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            z-index: 1001;
+            transition: all 0.3s;
+        }
+
+        .start-button:hover {
+            background: #c0392b;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        /* Contenido de la landing page */
+        .landing-page {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: #ecf0f1;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 1s ease-in-out;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+
+        .landing-page.active {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body>
+    <!-- Contenedor de la puerta -->
+    <div class="door-container" id="doorContainer">
+        <div class="door-panel left"></div>
+        <div class="door-panel right"></div>
+        <button class="start-button" id="startButton">Entrar ▶</button>
+    </div>
+
+    <!-- Landing page (contenido) -->
+    <div class="landing-page" id="landingPage">
+        <h1>¡Bienvenido! �</h1>
+        <p>Contenido de tu landing page aquí...</p>
+        <!-- Agrega más contenido según necesites -->
+    </div>
+
+    <script>
+        const doorContainer = document.getElementById('doorContainer');
+        const startButton = document.getElementById('startButton');
+        const landingPage = document.getElementById('landingPage');
+
+        startButton.addEventListener('click', () => {
+            // Abrir la puerta
+            doorContainer.classList.add('open');
+            
+            // Mostrar la landing page después de un retraso
+            setTimeout(() => {
+                landingPage.classList.add('active');
+                // Ocultar la puerta después de la animación
+                doorContainer.style.display = 'none';
+            }, 1000); // Ajusta este tiempo según la duración de tu animación
+        });
+    </script>
+</body>
+</html>
